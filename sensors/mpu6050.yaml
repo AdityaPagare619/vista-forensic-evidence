@@ -1,0 +1,100 @@
+# MPU6050 Sensor Configuration
+# VISTA 2.0 HIL Simulation
+
+sensor:
+  name: "MPU6050"
+  manufacturer: "InvenSense/TDK"
+  type: "6DOF IMU (3-axis accelerometer + 3-axis gyroscope)"
+  part_number: "MPU-6050"
+  
+dynamic_range:
+  accel: 16  # g (selectable: 2, 4, 8, 16)
+  gyro: 2000  # deg/s (selectable: 250, 500, 1000, 2000)
+  
+noise:
+  # Allen Variance Parameters
+  accel_density: 0.004  # g/√Hz (4 mg/√Hz) - white noise density
+  gyro_density: 0.0175  # °/s/√Hz (17.5 mdps/√Hz)
+  
+  # Bias Instability
+  bias_instability:
+    accel: 0.0005  # g (0.5 mg)
+    gyro: 0.005   # °/s (5 mdps/s)
+  
+  # Random Walk
+  bias_drift_rate: 0.0001  # g/s (random walk coefficient)
+  
+  # Noise Root Allan Variance (for validation)
+  allan_variance:
+    accel:
+      arw: 0.0004  # g/√s (angle random walk equivalent)
+      bias_instability: 0.0005  # g
+      drift_rate: 0.0001  # g/s
+    gyro:
+      arw: 0.0175  # °/s/√s
+      bias_instability: 0.005  # °/s
+      drift_rate: 0.001  # °/s²
+  
+bandwidth:
+  accel_lp: 260  # Hz (low-pass filter cutoff, configurable)
+  gyro_lp: 256   # Hz
+  # Note: DLPF can be configured: 5, 10, 20, 42, 98, 188, 256 Hz
+  
+temperature:
+  sensitivity_coeff: -0.0004  # /°C (first order temperature coefficient)
+  offset_coeff: 0.0001  # g/°C (offset temperature coefficient)
+  reference_temp: 25  # °C (factory calibration temperature)
+  operating_range: [-40, 85]  # °C
+  
+cross_axis:
+  # 3x3 sensitivity matrix (off-diagonal = cross-axis coupling)
+  # Diagonal elements ≈ 1.0 (primary axis sensitivity)
+  # Off-diagonal elements ≈ 0.01-0.05 (cross-axis coupling)
+  matrix: [[1.0, 0.01, -0.005],
+           [-0.008, 1.0, 0.012],
+           [0.003, -0.007, 1.0]]
+  
+timing:
+  max_odr: 1000  # Hz (output data rate, configurable)
+  # Available ODRs: 1kHz, 500Hz, 200Hz, 100Hz, 50Hz, 20Hz, 10Hz, 5Hz, 1.25Hz
+  jitter_pct: 0.01  # ±1% sampling jitter
+  clock_drift_ppm: 10  # parts per million clock drift
+  
+  # VISTA-specific timing (from actual hardware)
+  vista_actual_odr: 65  # Hz (measured on RPi4 with Python GIL + I2C overhead)
+  vista_jitter_ms: 1.5  # ms (measured jitter on RPi4)
+  
+calibration:
+  # Factory calibration values (typical)
+  factory_offset:
+    accel: [0.01, -0.02, 0.03]  # g (X, Y, Z)
+    gyro: [0.1, -0.05, 0.08]    # °/s (X, Y, Z)
+  
+  # Sensitivity scale factors (from datasheet)
+  sensitivity:
+    accel: 16384  # LSB/g (for ±2g range)
+    gyro: 131     # LSB/(°/s) (for ±250°/s range)
+  
+  # Self-test values (for validation)
+  self_test:
+    accel_diff_pct: 5  # Max % difference from factory
+    gyro_diff_pct: 5   # Max % difference from factory
+  
+crash_behavior:
+  # VISTA-specific observations
+  saturation_g: 16  # Hard limit (±16g)
+  saturation_detection: true  # VISTA flags saturation in IMUPacket
+  crash_threshold_g: 3  # Typical crash detection threshold
+  max_delta_v_kmh: 35  # Approximate delta-V where MPU6050 saturates
+  
+limitations:
+  - "Saturation at ±16g limits frontal crash measurement"
+  - "50-80 Hz ODR on RPi4 due to Python GIL + I2C overhead"
+  - "Noise floor may mask low-severity crashes"
+  - "Temperature effects significant outside 20-30°C range"
+
+references:
+  - "MPU-6050 Product Specification Revision 3.2"
+  - "MPU-6050 Register Map and Descriptions Revision 4.0"
+  - "Adafruit MPU6050 Library Documentation"
+  - "MDPI Sensors 2019, 19, 3083 - Acoustic Injection on MPU6050"

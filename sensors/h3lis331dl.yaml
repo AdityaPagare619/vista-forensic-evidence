@@ -1,0 +1,99 @@
+# H3LIS331DL Sensor Configuration
+# VISTA 2.0 HIL Simulation - High-G Alternative
+
+sensor:
+  name: "H3LIS331DL"
+  manufacturer: "STMicroelectronics"
+  type: "High-g 3-axis digital accelerometer"
+  part_number: "H3LIS331DL"
+  package: "LGA-16"
+  
+dynamic_range:
+  accel: 400  # g (selectable: 100, 200, 400)
+  gyro: null   # No gyroscope (accelerometer only)
+  
+noise:
+  # Allen Variance Parameters
+  accel_density: 0.002  # g/√Hz (2 mg/√Hz) - white noise density
+  
+  # Bias Instability
+  bias_instability:
+    accel: 0.001  # g (1 mg)
+  
+  # Random Walk
+  bias_drift_rate: 0.0002  # g/s (random walk coefficient)
+  
+  # Noise Root Allan Variance (for validation)
+  allan_variance:
+    accel:
+      arw: 0.0002  # g/√s
+      bias_instability: 0.001  # g
+      drift_rate: 0.0002  # g/s
+  
+bandwidth:
+  accel_lp: 1500  # Hz (low-pass filter cutoff)
+  # Note: Configurable ODR from 0.5Hz to 1kHz
+  # Bandwidth = ODR/2 for low-power mode
+  # Bandwidth = ODR/4 for normal mode
+  
+temperature:
+  sensitivity_coeff: -0.0002  # /°C (first order temperature coefficient)
+  offset_coeff: 0.00005  # g/°C (offset temperature coefficient)
+  reference_temp: 25  # °C (factory calibration temperature)
+  operating_range: [-40, 85]  # °C
+  
+cross_axis:
+  # 3x3 sensitivity matrix (off-diagonal = cross-axis coupling)
+  matrix: [[1.0, 0.005, -0.003],
+           [-0.004, 1.0, 0.006],
+           [0.002, -0.003, 1.0]]
+  
+timing:
+  max_odr: 1000  # Hz (output data rate, configurable)
+  # Available ODRs: 0.5, 1, 2, 5, 10, 50, 100, 200, 400, 1000 Hz
+  jitter_pct: 0.005  # ±0.5% sampling jitter (better than MPU6050)
+  clock_drift_ppm: 5  # parts per million clock drift
+  
+calibration:
+  # Factory calibration values (typical)
+  factory_offset:
+    accel: [0.005, -0.01, 0.015]  # g (X, Y, Z)
+  
+  # Sensitivity scale factors (from datasheet)
+  sensitivity:
+    accel: 6  # LSB/mg (for ±400g range)
+  
+  # Self-test values (for validation)
+  self_test:
+    accel_diff_pct: 5  # Max % difference from factory
+  
+crash_behavior:
+  # High-G specific behavior
+  saturation_g: 400  # Hard limit (±400g)
+  saturation_detection: true  # Can detect saturation
+  crash_threshold_g: 10  # Can detect higher-severity crashes
+  max_delta_v_kmh: 120  # Can measure much higher delta-V than MPU6050
+  
+  # Advantages over MPU6050 for crash detection
+  advantages:
+    - "400g range captures severe crashes without saturation"
+    - "Lower noise density (2 mg/√Hz vs 4 mg/√Hz)"
+    - "Higher bandwidth (1500 Hz vs 260 Hz)"
+    - "Better for crash reconstruction applications"
+  
+  # Disadvantages
+  disadvantages:
+    - "No gyroscope (cannot measure angular rates)"
+    - "Higher cost ($5 vs $2 for MPU6050)"
+    - "May be overkill for normal driving monitoring"
+  
+limitations:
+  - "No gyroscope - requires separate sensor for angular rate"
+  - "Higher cost than MPU6050"
+  - "May have lower resolution at low acceleration (<1g)"
+  - "Less common in consumer electronics (limited community support)"
+
+references:
+  - "H3LIS331DL Datasheet (ST Document DS9012 Rev 5)"
+  - "Adafruit H3LIS331 and LIS331 High-g Accelerometers"
+  - "SparkFun H3LIS331DL Breakout Documentation"

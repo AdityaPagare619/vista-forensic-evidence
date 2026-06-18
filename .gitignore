@@ -1,0 +1,44 @@
+# VISTA 2.0 — Git Ignore
+# =====================
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Data (too large, proprietary access)
+DataSets&Data/
+
+# Generated outputs (regenerable)
+output/
+test_output/
+benchmarks/*.png
+benchmarks/*.json
+sensor_comparison.png
+*.log
+
+# Session/state files
+.arbor/
+*.session
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.o
+*.elf
+*.hex
+firmware/build/
+
+# Archives
+*.zip
+*.tar.gz

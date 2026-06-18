@@ -1,0 +1,21 @@
+# VISTA 2.0 HIL Simulation - Requirements
+# Python 3.8+ required
+
+# Core dependencies
+numpy>=1.20.0
+scipy>=1.7.0
+pyyaml>=5.4.0
+
+# Optional: Hardware interface
+# pyserial>=3.5.0  # For USB serial communication with RPi4
+# spidev>=3.5      # For SPI communication with STM32
+
+# Optional: Visualization
+matplotlib>=3.4.0
+
+# Optional: Testing
+pytest>=6.2.0
+pytest-cov>=2.12.0
+
+# Optional: Performance
+# numba>=0.54.0  # For JIT compilation of hot loops

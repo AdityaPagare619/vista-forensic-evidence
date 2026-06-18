@@ -1,0 +1,108 @@
+# IAM-20680HP Sensor Configuration
+# VISTA 2.0 HIL Simulation - High-Performance Alternative
+
+sensor:
+  name: "IAM-20680HP"
+  manufacturer: "InvenSense/TDK"
+  type: "6DOF IMU (3-axis accelerometer + 3-axis gyroscope)"
+  part_number: "IAM-20680HP"
+  package: "LGA-14"
+  
+dynamic_range:
+  accel: 16  # g (selectable: 2, 4, 8, 16)
+  gyro: 2000  # deg/s (selectable: 250, 500, 1000, 2000)
+  
+noise:
+  # Allen Variance Parameters
+  accel_density: 0.0032  # g/√Hz (3.2 mg/√Hz) - white noise density
+  gyro_density: 0.01    # °/s/√Hz (10 mdps/√Hz)
+  
+  # Bias Instability
+  bias_instability:
+    accel: 0.0004  # g (0.4 mg)
+    gyro: 0.003   # °/s (3 mdps/s)
+  
+  # Random Walk
+  bias_drift_rate: 0.00008  # g/s (random walk coefficient)
+  
+  # Noise Root Allan Variance (for validation)
+  allan_variance:
+    accel:
+      arw: 0.00032  # g/√s
+      bias_instability: 0.0004  # g
+      drift_rate: 0.00008  # g/s
+    gyro:
+      arw: 0.01  # °/s/√s
+      bias_instability: 0.003  # °/s
+      drift_rate: 0.0008  # °/s²
+  
+bandwidth:
+  accel_lp: 250  # Hz (low-pass filter cutoff)
+  gyro_lp: 244   # Hz
+  # Note: DLPF can be configured: 5, 10, 20, 42, 98, 188, 250 Hz
+  
+temperature:
+  sensitivity_coeff: -0.0003  # /°C (first order temperature coefficient)
+  offset_coeff: 0.00008  # g/°C (offset temperature coefficient)
+  reference_temp: 25  # °C (factory calibration temperature)
+  operating_range: [-40, 85]  # °C
+  
+cross_axis:
+  # 3x3 sensitivity matrix (off-diagonal = cross-axis coupling)
+  matrix: [[1.0, 0.008, -0.004],
+           [-0.006, 1.0, 0.01],
+           [0.002, -0.005, 1.0]]
+  
+timing:
+  max_odr: 1000  # Hz (output data rate, configurable)
+  # Available ODRs: 1kHz, 500Hz, 200Hz, 100Hz, 50Hz, 20Hz, 10Hz, 5Hz, 1.25Hz
+  jitter_pct: 0.008  # ±0.8% sampling jitter
+  clock_drift_ppm: 8  # parts per million clock drift
+  
+calibration:
+  # Factory calibration values (typical)
+  factory_offset:
+    accel: [0.008, -0.015, 0.02]  # g (X, Y, Z)
+    gyro: [0.08, -0.04, 0.06]    # °/s (X, Y, Z)
+  
+  # Sensitivity scale factors (from datasheet)
+  sensitivity:
+    accel: 16384  # LSB/g (for ±2g range)
+    gyro: 131     # LSB/(°/s) (for ±250°/s range)
+  
+  # Self-test values (for validation)
+  self_test:
+    accel_diff_pct: 5  # Max % difference from factory
+    gyro_diff_pct: 5   # Max % difference from factory
+  
+crash_behavior:
+  # High-Performance variant
+  saturation_g: 16  # Hard limit (±16g, same as MPU6050)
+  saturation_detection: true  # VISTA flags saturation
+  crash_threshold_g: 3  # Typical crash detection threshold
+  max_delta_v_kmh: 35  # Similar to MPU6050
+  
+  # Improvements over MPU6050
+  improvements:
+    - "Lower noise density (3.2 mg/√Hz vs 4 mg/√Hz)"
+    - "Better bias instability (0.4 mg vs 0.5 mg)"
+    - "Lower clock drift (8 ppm vs 10 ppm)"
+    - "Industrial temperature range support"
+    - "Better vibration rejection"
+  
+  # Trade-offs
+  tradeoffs:
+    - "Same ±16g limit as MPU6050 (still saturates in severe crashes)"
+    - "Higher cost than MPU6050"
+    - "Less community support than MPU6050"
+  
+limitations:
+  - "Saturation at ±16g limits frontal crash measurement"
+  - "Same range limitation as MPU6050"
+  - "May not be necessary for VISTA (MPU6050 is sufficient)"
+  - "Less common in hobby/educational projects"
+
+references:
+  - "IAM-20680HP Product Specification (InvenSense)"
+  - "IAM-20680HP Register Map (InvenSense)"
+  - "TDK InvenSense IMU Product Line Documentation"
