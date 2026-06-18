@@ -1,0 +1,146 @@
+[
+  {
+    "desc": "Low-speed frontal rigid",
+    "metrics": {
+      "correlation": 0.4779924345675759,
+      "p_value": 0.00044706691411899467,
+      "rmse_ms2": 95.08428136294538,
+      "mae_ms2": 80.81610083372259,
+      "peak_error_pct": 131.34483966371042,
+      "duration_error_pct": -17.02127659574468,
+      "delta_v_error_pct": 78.81238163992101,
+      "simulated_peak_g": 26.66027628982075,
+      "real_peak_g": 11.524041914474905,
+      "simulated_duration_ms": 39.0,
+      "real_duration_ms": 47.0,
+      "simulated_delta_v_kmh": 1.7394738333878121,
+      "real_delta_v_kmh": 0.9727927213064218
+    }
+  },
+  {
+    "desc": "Mid-speed frontal rigid",
+    "metrics": {
+      "correlation": 0.3552018353839603,
+      "p_value": 0.011365081123292441,
+      "rmse_ms2": 175.62678656849113,
+      "mae_ms2": 145.6686999686753,
+      "peak_error_pct": 139.35047929409146,
+      "duration_error_pct": -21.27659574468085,
+      "delta_v_error_pct": 110.76919068212369,
+      "simulated_peak_g": 43.296955753957576,
+      "real_peak_g": 18.089354106017197,
+      "simulated_duration_ms": 37.0,
+      "real_duration_ms": 47.0,
+      "simulated_delta_v_kmh": 2.879882094176969,
+      "real_delta_v_kmh": 1.366367676820626
+    }
+  },
+  {
+    "desc": "NCAP speed frontal rigid",
+    "metrics": {
+      "correlation": 0.301893263804499,
+      "p_value": 0.03311337226616501,
+      "rmse_ms2": 203.24350302477995,
+      "mae_ms2": 169.46579192450844,
+      "peak_error_pct": 146.2568918021322,
+      "duration_error_pct": -19.148936170212767,
+      "delta_v_error_pct": 124.47381562944742,
+      "simulated_peak_g": 48.488570758581055,
+      "real_peak_g": 19.69023908477725,
+      "simulated_duration_ms": 38.0,
+      "real_duration_ms": 47.0,
+      "simulated_delta_v_kmh": 3.236641616331001,
+      "real_delta_v_kmh": 1.4418793600737478
+    }
+  },
+  {
+    "desc": "High-speed frontal rigid",
+    "metrics": {
+      "correlation": 0.14202086868398472,
+      "p_value": 0.3251953545770524,
+      "rmse_ms2": 316.4916873776969,
+      "mae_ms2": 260.57198197684687,
+      "peak_error_pct": 191.4564275032087,
+      "duration_error_pct": -19.148936170212767,
+      "delta_v_error_pct": 171.93530511395917,
+      "simulated_peak_g": 68.73431269820684,
+      "real_peak_g": 23.583049201222412,
+      "simulated_duration_ms": 38.0,
+      "real_duration_ms": 47.0,
+      "simulated_delta_v_kmh": 4.6249819565783765,
+      "real_delta_v_kmh": 1.7007655385681526
+    }
+  },
+  {
+    "desc": "Mid-speed 40% offset",
+    "metrics": {
+      "correlation": 0.22149976348826195,
+      "p_value": 0.12212928013165261,
+      "rmse_ms2": 230.24698560997254,
+      "mae_ms2": 185.48420017846817,
+      "peak_error_pct": 673.3248530840133,
+      "duration_error_pct": -19.148936170212767,
+      "delta_v_error_pct": 580.4036447627776,
+      "simulated_peak_g": 42.92536175245658,
+      "real_peak_g": 5.550754198739455,
+      "simulated_duration_ms": 38.0,
+      "real_duration_ms": 47.0,
+      "simulated_delta_v_kmh": 2.9239433397819816,
+      "real_delta_v_kmh": 0.42973657802809284
+    }
+  },
+  {
+    "desc": "IIHS speed 40% offset",
+    "metrics": {
+      "correlation": 0.22763951636362934,
+      "p_value": 0.1118586143921618,
+      "rmse_ms2": 293.56822344151635,
+      "mae_ms2": 235.56830243626104,
+      "peak_error_pct": 741.1075068558998,
+      "duration_error_pct": -13.333333333333334,
+      "delta_v_error_pct": 615.5101777784876,
+      "simulated_peak_g": 55.370754610137055,
+      "real_peak_g": 6.5830769739668105,
+      "simulated_duration_ms": 39.0,
+      "real_duration_ms": 45.0,
+      "simulated_delta_v_kmh": 3.6829658299762276,
+      "real_delta_v_kmh": 0.5147328360039659
+    }
+  },
+  {
+    "desc": "Mid-speed side impact",
+    "metrics": {
+      "correlation": 0.3676388985980867,
+      "p_value": 0.02980119146858868,
+      "rmse_ms2": 181.22915666276506,
+      "mae_ms2": 147.84267814074929,
+      "peak_error_pct": -20.456779274284802,
+      "duration_error_pct": -6.666666666666667,
+      "delta_v_error_pct": 12.715230709535696,
+      "simulated_peak_g": 42.864763280080965,
+      "real_peak_g": 53.8886442980343,
+      "simulated_duration_ms": 28.0,
+      "real_duration_ms": 30.0,
+      "simulated_delta_v_kmh": 2.4081984072571236,
+      "real_delta_v_kmh": 2.136533272475829
+    }
+  },
+  {
+    "desc": "Low-speed side impact",
+    "metrics": {
+      "correlation": 0.11886661940917517,
+      "p_value": 0.5391208453767311,
+      "rmse_ms2": 144.28060063485466,
+      "mae_ms2": 120.51888550507327,
+      "peak_error_pct": -31.66113350680296,
+      "duration_error_pct": -12.0,
+      "delta_v_error_pct": -16.239570212415476,
+      "simulated_peak_g": 25.623356479448972,
+      "real_peak_g": 37.4945587983958,
+      "simulated_duration_ms": 22.0,
+      "real_duration_ms": 25.0,
+      "simulated_delta_v_kmh": 1.0729175844277317,
+      "real_delta_v_kmh": 1.2809361021052998
+    }
+  }
+]
